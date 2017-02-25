@@ -2,12 +2,13 @@
 var ndjsonStream = require("can-ndjson-stream");
 
 fetch("todos.ndjson") .then( (response) => { 
- return ndjsonStream( response.body  );
+  return ndjsonStream( response.body  );
  }).then( (todosStream) => { 
-  todosStream.getReader().read().then( function read(result){
+  var reader = todosStream.getReader();
+  reader.read().then( function read(result){
     if (result.done) return;
     console.log(result.value);
-    todosStream.getReader().read().then( read );
+    reader.read().then( read );
   } )
  });
 
