@@ -20,7 +20,8 @@
 		"raises": true,
 		"start": true,
 		"stop": true,
-		"global": true
+		"global": true,
+		"ReadableStream": true
 	},
 	"curly": true,
 	"eqeqeq": true,
