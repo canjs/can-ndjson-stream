@@ -1,5 +1,7 @@
 language: node_js
 node_js: node
+addons:
+  google-chrome: latest
 before_install:
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
