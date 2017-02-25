@@ -15,32 +15,37 @@ module.exports = function(response) {
             return;
           }
 
+          data_buf = data_buf.trim();
           if (data_buf.length != 0) {
             try {
               var data_l = JSON.parse(data_buf);
               controller.enqueue(data_l);
             } catch(e) {
-              console.error("Cannot parse JSON: "+data_buf);
+              controller.error(e);
             }
           }
           controller.close();
-          console.log("Complete");
           return;
         }
 
         var data = decoder.decode(result.value, {stream: true})
         data_buf += data;
         var lines = data_buf.split("\n");
-        while(lines.length > 1) {
-          var l = lines.shift();
-          try {
-            var data_l = JSON.parse(l);
-            controller.enqueue(data_l);
-          } catch(e) {
-            console.error("Cannot parse JSON: "+l);
+        for(var i=0; i<lines.length-1; ++i) {
+          var l = lines[i].trim();
+          if (l.length > 0) {
+            try {
+              var data_l = JSON.parse(l);
+              controller.enqueue(data_l);
+            } catch(e) {
+              controller.error(e);
+              cancellationRequest = true;
+              reader.cancel();
+              return;
+            }
           }
         }
-        data_buf = lines[0];
+        data_buf = lines[lines.length-1];
 
         return reader.read().then(processResult);
       });
