@@ -52,7 +52,7 @@ module.exports = function(response) {
 
     },
     cancel: function(reason) {
-      console.log("Cancel registered");
+      console.log("Cancel registered due to ", reason);
       cancellationRequest = true;
       is_reader.cancel();
     }
