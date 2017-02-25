@@ -1,12 +1,21 @@
 module.exports = function(response) {
+  // For cancellation
+  var is_reader, cancellationRequest = false;
   return new ReadableStream({
     start: function(controller) {
       var reader = response.getReader();
+      is_reader = reader;
       var decoder = new TextDecoder();
       var data_buf = "";
+
       reader.read().then(function processResult(result) {
         if (result.done) {
-          if (data_buf.length != 0 || cancelRequest) {
+          if (cancellationRequest) {
+            // Immediately exit
+            return;
+          }
+
+          if (data_buf.length != 0) {
             try {
               var data_l = JSON.parse(data_buf);
               controller.enqueue(data_l);
@@ -18,7 +27,7 @@ module.exports = function(response) {
           console.log("Complete");
           return;
         }
-        // console.log("Received "+result.value.length);
+
         var data = decoder.decode(result.value, {stream: true})
         data_buf += data;
         var lines = data_buf.split("\n");
@@ -38,7 +47,9 @@ module.exports = function(response) {
 
     },
     cancel: function(reason) {
-      // reader.cancel();
+      console.log("Cancel registered");
+      cancellationRequest = true;
+      is_reader.cancel();
     }
   });
 }
