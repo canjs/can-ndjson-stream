@@ -16,7 +16,7 @@ module.exports = function(response) {
           }
 
           data_buf = data_buf.trim();
-          if (data_buf.length != 0) {
+          if (data_buf.length !== 0) {
             try {
               var data_l = JSON.parse(data_buf);
               controller.enqueue(data_l);
@@ -29,15 +29,15 @@ module.exports = function(response) {
           return;
         }
 
-        var data = decoder.decode(result.value, {stream: true})
+        var data = decoder.decode(result.value, {stream: true});
         data_buf += data;
         var lines = data_buf.split("\n");
-        for(var i=0; i<lines.length-1; ++i) {
+        for(var i = 0; i < lines.length - 1; ++i) {
           var l = lines[i].trim();
           if (l.length > 0) {
             try {
-              var data_l = JSON.parse(l);
-              controller.enqueue(data_l);
+              var data_line = JSON.parse(l);
+              controller.enqueue(data_line);
             } catch(e) {
               controller.error(e);
               cancellationRequest = true;
@@ -53,9 +53,9 @@ module.exports = function(response) {
 
     },
     cancel: function(reason) {
-      console.log("Cancel registered");
+      console.log("Cancel registered due to ", reason);
       cancellationRequest = true;
       is_reader.cancel();
     }
   });
-}
+};
