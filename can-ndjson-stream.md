@@ -9,9 +9,9 @@
 
 
 
-  @param {ReadableStream<Byte>} stream The input argument is the ndjsonStream received by client-side from the server-side as the response.body.
+  @param {ReadableStream<Byte>} stream The input argument is a ReadableStream ndjsonStream received by client-side from the server-side as the response.body.
 
-  @return {ReadableStream<Object>} The output argument is the ReadableStream Javascript objects produced by ndjsonStream() function.
+  @return {ReadableStream<Object>} The output argument is a ReadableStream JavaScript objects produced by ndjsonStream() function.
 
 @body
 
