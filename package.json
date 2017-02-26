@@ -52,7 +52,7 @@
     ]
   },
   "dependencies": {
-    "cssify": "^0.6.0"
+    "cssify": "^1.0.3"
   },
   "devDependencies": {
     "jshint": "^2.9.1",

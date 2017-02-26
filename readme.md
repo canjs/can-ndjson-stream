@@ -1,5 +1,7 @@
 # can-ndjson-stream
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/canjs/can-ndjson-stream.svg)](https://greenkeeper.io/)
+
 [![Build Status](https://travis-ci.org/canjs/can-ndjson-stream.png?branch=master)](https://travis-ci.org/canjs/can-ndjson-stream)
 
 
