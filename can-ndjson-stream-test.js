@@ -1,11 +1,6 @@
 var QUnit = require("steal-qunit");
 var ndjsonStream = require("can-ndjson-stream");
 
-function streamerr(e) {
-  console.log("Stream error");
-  console.log(e);
-}
-
 function readableStreamFromString(s) {
   return new ReadableStream({
     start: function(controller) {
@@ -30,18 +25,18 @@ function readableStreamFromString(s) {
 
         // Advance the position
         pos += chunkSize;
-        
+
         push();
       }
 
       // Let's go!
       push();
     },
-    cancel: function(reason) {
+    cancel: function() {
 
     }
-  }); 
-} 
+  });
+}
 
 function inputStream(objArray) {
   var jsons = objArray.map( (obj) => {return JSON.stringify(obj);} );
@@ -59,32 +54,6 @@ QUnit.test('Initialized the plugin', function(){
 	QUnit.equal(typeof ndjsonStream, 'function');
 });
 
-QUnit.asyncTest('simple case', function(assert) {
-  var testObject = [
-    {"date":"2017-02-24 03:07:45","user":"21109850","fuel":"37","ammo":"2","steel":"13","baux":"5","seaweed":"0","type":"LOOT","product":"134"},
-    {"date":"2017-02-22 04:40:13","user":"21109850","fuel":"37","ammo":"2","steel":"13","baux":"5","seaweed":"0","type":"LOOT","product":"75"},
-    {"date":"2017-02-21 20:47:51","user":"26464462","fuel":"37","ammo":"3","steel":"19","baux":"5","seaweed":"1","type":"LOOT","product":"81"}
-  ];
-  var readObjects = [];
-
-  fetch("simple_test.ndjson") .then( (response) => {
-    return ndjsonStream( response.body  );
-   }).then(function (todosStream) {
-    var reader = todosStream.getReader();
-    reader.read().then(function read(result) {
-      if (result.done) {
-        assert.deepEqual(readObjects, testObject, "Two arrays should be the same in value");
-        QUnit.start();
-        return;
-      }
-      readObjects.push(result.value);
-      reader.read().then(read);
-    });
-   });
-
-
-});
-
 QUnit.asyncTest('simple_test_from_stream', function(assert) {
   var testObject = [
     {"date":"2017-02-24 03:07:45","user":"21109850","fuel":"37","ammo":"2","steel":"13","baux":"5","seaweed":"0","type":"LOOT","product":"134"},
@@ -92,7 +61,7 @@ QUnit.asyncTest('simple_test_from_stream', function(assert) {
     {"date":"2017-02-21 20:47:51","user":"26464462","fuel":"37","ammo":"3","steel":"19","baux":"5","seaweed":"1","type":"LOOT","product":"81"}
   ];
   var readObjects = [];
-  
+
   var todoStream = ndjsonStream( inputStream(testObject) );
 
   function test(todosStream) {
@@ -117,10 +86,10 @@ QUnit.asyncTest('maleformed json', function(assert) {
   var todoStream = ndjsonStream( readableStreamFromString(maleformed_string) );
   var reader = todoStream.getReader();
   var errorCaught = false;
-  function errCheck(e) {
-   errorCaught = true;
+  function errCheck() {
+    errorCaught = true;
   }
-  
+
   var allDone = reader.read().then(function read(result) {
       if (result.done) {
         return;
@@ -135,6 +104,6 @@ QUnit.asyncTest('maleformed json', function(assert) {
     }, function(){
       assert.strictEqual(errorCaught, true, "rejected: maleformed json string should cause an error");
       QUnit.start();
-    })
-  
+  });
+
   });
