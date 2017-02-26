@@ -20,4 +20,8 @@ testee.test(['test.html'], [{
 	"os": "win",
 	"browser": "chrome",
 	"version": "latest"
-}], browserstack);
+}], browserstack).then(function() {
+	process.exitCode = 0;
+}, function() {
+	process.exitCode = 1;
+});
