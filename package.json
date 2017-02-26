@@ -63,5 +63,11 @@
     "generator-donejs": "^1.0.0-alpha.0",
     "donejs-cli": "^1.0.0-alpha.2",
     "done-serve": "^1.0.0-alpha.0"
-  }
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    }
+  ]
 }
