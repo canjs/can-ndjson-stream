@@ -17,19 +17,19 @@
 
 ## Use
 
-To use this npm package implements:
+To use this npm package to implement data stream transmission:
 
-1. Makes a fetch request to an ndjson service.
+1. Makes a `fetch` request to an ndjson service.
 2. The server side received each record from the database and writes one JSON one line per record.
-3. The client side receives the server response as a ReadableStream as the response.body.
-4. The ndjsonStream() function converts the response ndjson data stream into a stream of JavaScript Objects.
-5. Each JavaScript objects can be retrieved by todoStream.gerReader.read().
+3. The client side receives the server response as a ReadableStream as the `response.body`.
+4. The `ndjsonStream()` function converts the response ndjson data stream into a stream of JavaScript Objects.
+5. Each JavaScript objects can be retrieved by `todoStream.gerReader.read()`.
 
 
 ```js
 fetch()  // make a fetch request
-  .then( (response) => {   
- 	return ndjsonStream( response.body ); // receive the response
+  .then( (response) => {   // receive the response 
+ 	return ndjsonStream( response.body ); // call ndjsonStream() function to convert ndjson stream into JS stream
  }).then( (todosStream) => {   
   todosStream.getReader().read().then( function read(result){
     if (result.done) return;
@@ -49,7 +49,7 @@ import plugin from "can-ndjson-stream";
 
 **CommonJS use**
 
-Use require to load can-ndjson-stream and return converted ReadableStream of Javascript objects:
+Use `require` to load `can-ndjson-stream` and return converted ReadableStream of Javascript objects:
 
 ```js
 var ndjsonStream = require("can-ndjson-stream");
@@ -57,7 +57,7 @@ var ndjsonStream = require("can-ndjson-stream");
 
 **AMD use**
 
-Configure the can path, query path and the can-ndjson-stream package:
+Configure the `can` path, `query` path and the `can-ndjson-stream` package:
 
 ```js
 <script src="require.js"></script>
@@ -79,7 +79,7 @@ Configure the can path, query path and the can-ndjson-stream package:
 
 **Standalone use**
 
-Load the global version of the plugin:
+Load the `global` version of the plugin:
 
 ```js
 <script src='./node_modules/can-ndjson-stream/dist/global/can-ndjson-stream.js'></script>
