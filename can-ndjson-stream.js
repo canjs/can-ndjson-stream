@@ -22,6 +22,7 @@ module.exports = function(response) {
               controller.enqueue(data_l);
             } catch(e) {
               controller.error(e);
+              return;
             }
           }
           controller.close();
