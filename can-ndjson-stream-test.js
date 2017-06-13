@@ -1,6 +1,18 @@
 var QUnit = require("steal-qunit");
 var ndjsonStream = require("can-ndjson-stream");
 
+// Skip all tests in browsers that do not support ReadableStream
+// https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream
+try {
+  new ReadableStream();
+} catch(err) {
+  var qunitTest = QUnit.test;
+  var qunitAsyncTest = QUnit.asyncTest;
+  QUnit.test = QUnit.skip;
+  QUnit.asyncTest = QUnit.skip;
+  console.warn('All tests skipped because ReadableStream is not supported:', navigator.userAgent);
+}
+
 function readableStreamFromString(s) {
   return new ReadableStream({
     start: function(controller) {
@@ -43,11 +55,6 @@ function inputStream(objArray) {
   return readableStreamFromString(jsons.join('\n'));
 }
 
-
-
-
-
-
 QUnit.module('can-ndjson-stream');
 
 QUnit.test('Initialized the plugin', function(){
@@ -79,7 +86,6 @@ QUnit.asyncTest('simple_test_from_stream', function(assert) {
   test(todoStream);
 });
 
-
 QUnit.asyncTest('maleformed json', function(assert) {
   var maleformed_string = "{\"1\":2}\n{sss: 2}";
   var readObjects = [];
@@ -106,4 +112,10 @@ QUnit.asyncTest('maleformed json', function(assert) {
       QUnit.start();
   });
 
-  });
+});
+
+//Resetting Qunit.test and asyncTest back to original
+if (QUnit.test === QUnit.skip) {
+  QUnit.test = qunitTest;
+  QUnit.asyncTest = qunitAsyncTest;
+}

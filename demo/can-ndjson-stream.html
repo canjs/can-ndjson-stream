@@ -1,4 +1,4 @@
-<script src="./node_modules/steal/steal.js" main="@empty">
+<script src="../node_modules/steal/steal.js" main="@empty">
 var ndjsonStream = require("can-ndjson-stream");
 
 function streamerr(e) {
@@ -6,8 +6,8 @@ function streamerr(e) {
   console.warn(e);
 }
 
-fetch("http://localhost/ndjson.php") .then( (response) => { 
-  return ndjsonStream( response.body  );
+fetch("/api").then( (response) => { 
+  return ndjsonStream( response.body );
  }).then(function (todosStream) { 
   var reader = todosStream.getReader();
   reader.read().then(function read(result){
@@ -16,8 +16,17 @@ fetch("http://localhost/ndjson.php") .then( (response) => { 
       return;
     }
     console.log(result.value);
+    render(result.value);
+    
     reader.read().then(read, streamerr);
   }, streamerr);
  });
 
+var counter = 0;
+
+function render(val) {
+  var div = document.createElement('div');
+  div.append('Fetched ndjson row ', ++counter, ' : ', JSON.stringify(val));
+  document.getElementsByTagName('body')[0].append(div);
+}
 </script>

@@ -4,56 +4,23 @@
 
 [![Build Status](https://travis-ci.org/canjs/can-ndjson-stream.png?branch=master)](https://travis-ci.org/canjs/can-ndjson-stream)
 
+[![Build Status](https://saucelabs.com/browser-matrix/can-ndjson-stream.svg)](https://saucelabs.com/beta/builds/270fe2884b8940f68684fae62c89c39e)
 
+## Demo
 
-## Usage
+All the demo code can be found in the `demo/` directory. 
 
-### ES6 use
+1. To get started, run the demo server.
 
-With StealJS, you can import this module directly in a template that is autorendered:
-
-```js
-import plugin from 'can-ndjson-stream';
+```shell
+cd demo
+node server.js
 ```
 
-### CommonJS use
+2. Navigate to localhost:8080/demo/can-ndjson-stream.html to see the demo in action.
 
-Use `require` to load `can-ndjson-stream` and everything else
-needed to create a template that uses `can-ndjson-stream`:
+3. Check out the demo code in `demo/can-ndjson-stream.html`.
 
-```js
-var plugin = require("can-ndjson-stream");
-```
-
-## AMD use
-
-Configure the `can` and `jquery` paths and the `can-ndjson-stream` package:
-
-```html
-<script src="require.js"></script>
-<script>
-	require.config({
-	    paths: {
-	        "jquery": "node_modules/jquery/dist/jquery",
-	        "can": "node_modules/canjs/dist/amd/can"
-	    },
-	    packages: [{
-		    	name: 'can-ndjson-stream',
-		    	location: 'node_modules/can-ndjson-stream/dist/amd',
-		    	main: 'lib/can-ndjson-stream'
-	    }]
-	});
-	require(["main-amd"], function(){});
-</script>
-```
-
-### Standalone use
-
-Load the `global` version of the plugin:
-
-```html
-<script src='./node_modules/can-ndjson-stream/dist/global/can-ndjson-stream.js'></script>
-```
 
 ## Contributing
 

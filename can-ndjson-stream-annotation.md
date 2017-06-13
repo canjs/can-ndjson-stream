@@ -6,7 +6,6 @@
 
 @signature `ndjsonStream( stream )`
 
-
   @param {ReadableStream<Byte>} stream The input argument is a ReadableStream ndjsonStream received by client-side from the server-side as the response.body.
 
   @return {ReadableStream<Object>} The output argument is a ReadableStream JavaScript objects produced by ndjsonStream() function.
