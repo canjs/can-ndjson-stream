@@ -28,7 +28,7 @@
     "http-server": "http-server -p 3000 --silent",
     "ci": "npm run build && npm run test && node ./test-sauce-labs.js"
   },
-  "main": "dist/cjs/can-ndjson-stream",
+  "main": "can-ndjson-stream",
   "browser": {
     "transform": [
       "cssify"
