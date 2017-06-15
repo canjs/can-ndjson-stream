@@ -31,5 +31,5 @@ app.get('/api', function(req, res) {
 });
 
 app.listen(8080, function() {
-  console.log('Checkout demo on localhost:8080');
+  console.log('Checkout demo on http://localhost:8080/demo/can-ndjson-stream.html');
 });

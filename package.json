@@ -25,6 +25,7 @@
     "release:major": "npm version major && npm publish",
     "build": "node build.js",
     "develop": "done-serve --static --develop --port 8080",
+    "demo": "node demo/server.js",
     "http-server": "http-server -p 3000 --silent",
     "ci": "npm run build && npm run test && node ./test-sauce-labs.js"
   },
