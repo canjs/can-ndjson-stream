@@ -6,6 +6,9 @@
 
 [![Build Status](https://saucelabs.com/browser-matrix/can-ndjson-stream.svg)](https://saucelabs.com/beta/builds/270fe2884b8940f68684fae62c89c39e)
 
+
+Most web applications encounter problems of latency because they process data discretely instead of streamingly. ndjsonstream() function converts a ReadableStream of raw ndjson data into a ReadableStream of Javascript objects to make data transmission faster.
+
 ## Demo
 
 All the demo code can be found in the `demo/` directory. 
@@ -20,6 +23,8 @@ node server.js
 2. Navigate to localhost:8080/demo/can-ndjson-stream.html to see the demo in action.
 
 3. Check out the demo code in `demo/can-ndjson-stream.html`.
+
+![ndjsonStream Visual](ndjsonStream.gif)
 
 
 ## Contributing
