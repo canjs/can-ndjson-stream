@@ -47,5 +47,5 @@
 	"phantom": true,
 	"rhino": true,
 	"node": true,
-	"esversion": 6
+	"esnext": true 
 }

@@ -6,29 +6,31 @@ function streamerr(e) {
   console.warn(e);
 }
 
-fetch("/api").then( (response) => { 
-  return ndjsonStream( response.body );
- }).then(function (todosStream) { 
+fetch("/api").then( function(response) { 
+  return ndjsonStream(response.body);
+ }).then(function(todosStream) { 
   var reader = todosStream.getReader();
-  debugger;
-  reader.read().then(function read(result){
-    if(result.value.user === '19572827') {
+
+  reader.read().then(function read(result) {
+    if (result.value.user === '17437675') {
       reader.cancel('Matched userId');
-    }
-    if (result.done) {
-      console.log("Done.");
       return;
     }
-    console.log(result.value);
-    render(result.value);
-    
+
+    if (result.done) {
+      render("Done.");
+      return;
+    }
+
+    render(result.value);   
     reader.read().then(read, streamerr);
+
   }, streamerr);
  });
 
 var counter = 0;
 
-function render(val) {
+render = val => {
   var div = document.createElement('div');
   div.append('Fetched ndjson row ', ++counter, ' : ', JSON.stringify(val));
   document.getElementsByTagName('body')[0].append(div);

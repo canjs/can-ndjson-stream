@@ -1,5 +1,4 @@
 var express = require('express');
-var http = require('http');
 var fs = require('fs');
 var ndjson = require('ndjson');
 
