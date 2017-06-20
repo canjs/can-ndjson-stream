@@ -10,7 +10,11 @@ fetch("/api").then( (response) => { 
   return ndjsonStream( response.body );
  }).then(function (todosStream) { 
   var reader = todosStream.getReader();
+  debugger;
   reader.read().then(function read(result){
+    if(result.value.user === '19572827') {
+      reader.cancel('Matched userId');
+    }
     if (result.done) {
       console.log("Done.");
       return;
