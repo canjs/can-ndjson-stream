@@ -21,7 +21,7 @@
   },
   "license": "ISC",
   "dependencies": {
-    "can-ndjson-stream": "0.0.0",
+    "can-ndjson-stream": "0.0.1",
     "express": "^4.15.3",
     "fs": "0.0.1-security",
     "ndjson": "^1.5.0"
