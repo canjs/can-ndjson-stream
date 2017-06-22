@@ -51,7 +51,7 @@ function readableStreamFromString(s) {
 }
 
 function inputStream(objArray) {
-  var jsons = objArray.map( (obj) => {return JSON.stringify(obj);} );
+  var jsons = objArray.map( function(obj) {return JSON.stringify(obj);} );
   return readableStreamFromString(jsons.join('\n'));
 }
 
