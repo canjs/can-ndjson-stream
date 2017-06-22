@@ -28,16 +28,6 @@
     "develop": "done-serve --static --develop --port 8080"
   },
   "main": "dist/cjs/can-ndjson-stream",
-  "browser": {
-    "transform": [
-      "cssify"
-    ]
-  },
-  "browserify": {
-    "transform": [
-      "cssify"
-    ]
-  },
   "keywords": [],
   "steal": {
     "main": "can-ndjson-stream",
@@ -50,9 +40,6 @@
       "donejs-cli",
       "steal-tools"
     ]
-  },
-  "dependencies": {
-    "cssify": "^1.0.3"
   },
   "devDependencies": {
     "jshint": "^2.9.1",
