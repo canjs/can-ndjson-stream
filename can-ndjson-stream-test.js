@@ -3,15 +3,15 @@ var ndjsonStream = require("can-ndjson-stream");
 
 // Skip all tests in browsers that do not support ReadableStream
 // https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream
+var isReadStreamSupported = true;
 try {
   new ReadableStream();
 } catch(err) {
-  var qunitTest = QUnit.test;
-  var qunitAsyncTest = QUnit.asyncTest;
-  QUnit.test = QUnit.skip;
-  QUnit.asyncTest = QUnit.skip;
-  console.warn('All tests skipped because ReadableStream is not supported:', navigator.userAgent);
+  isReadStreamSupported = false;
 }
+
+var conditionalTest = isReadStreamSupported ? QUnit.test : QUnit.skip;
+var conditionalAsyncTest = isReadStreamSupported ? QUnit.asyncTest : QUnit.skip;
 
 function readableStreamFromString(s) {
   return new ReadableStream({
@@ -57,11 +57,11 @@ function inputStream(objArray) {
 
 QUnit.module('can-ndjson-stream');
 
-QUnit.test('Initialized the plugin', function(){
+conditionalTest('Initialized the plugin', function(){
 	QUnit.equal(typeof ndjsonStream, 'function');
 });
 
-QUnit.asyncTest('simple_test_from_stream', function(assert) {
+conditionalAsyncTest('simple_test_from_stream', function(assert) {
   var testObject = [
     {"date":"2017-02-24 03:07:45","user":"21109850","fuel":"37","ammo":"2","steel":"13","baux":"5","seaweed":"0","type":"LOOT","product":"134"},
     {"date":"2017-02-22 04:40:13","user":"21109850","fuel":"37","ammo":"2","steel":"13","baux":"5","seaweed":"0","type":"LOOT","product":"75"},
@@ -86,7 +86,7 @@ QUnit.asyncTest('simple_test_from_stream', function(assert) {
   test(todoStream);
 });
 
-QUnit.asyncTest('maleformed json', function(assert) {
+conditionalAsyncTest('maleformed json', function(assert) {
   var maleformed_string = "{\"1\":2}\n{sss: 2}";
   var readObjects = [];
   var todoStream = ndjsonStream( readableStreamFromString(maleformed_string) );
@@ -114,8 +114,3 @@ QUnit.asyncTest('maleformed json', function(assert) {
 
 });
 
-//Resetting Qunit.test and asyncTest back to original
-if (QUnit.test === QUnit.skip) {
-  QUnit.test = qunitTest;
-  QUnit.asyncTest = qunitAsyncTest;
-}
