@@ -27,7 +27,7 @@ The `can-ndjson-stream` module converts a stream of ndjson to a [ReadableStream]
 ```
 
 
-@param {ReadableStream<Byte>} a ndjson stream
+@param {ReadableStream<Byte>} ndjson stream
 
 @return {ReadableStream<Object>} The output is a [ReadableStream](https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream) of JS objects that have the following methods:
 - getReader()
@@ -42,13 +42,13 @@ The `can-ndjson-stream` module converts a stream of ndjson to a [ReadableStream]
 1. Make a `fetch` request to an ndjson service by passing the endpoint as an argument. 
 2. The service responds with a stream of ndjson. 
 3. `Fetch`'s `then` method is provided a `Response` instance, which we can parse using `ndjsonStream()` into a JavaScript `ReadableStream`
-5. Each JavaScript object in the stream can be read by calling `[streamName].getReader.read()`.
+5. Each JavaScript object in the stream can be read by calling `[streamName].getReader().read()`.
 6. `ReadableStream` exposes a `cancel` method that can be called to cancel the stream.
 
 ```js
   const ndjsonStream = require('can-ndjson-stream');
 
-  fetch('some/endpoint')  // make a fetch request to a ndjson stream service
+  fetch('some/endpoint')  // make a fetch request to an ndjson stream service
     .then((response) => { 
     return ndjsonStream(response.body); //ndjsonStream parses the response.body
    }).then((todosStream) => { 

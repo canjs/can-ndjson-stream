@@ -7,7 +7,7 @@
 [![Build Status](https://saucelabs.com/browser-matrix/can-ndjson-stream.svg)](https://saucelabs.com/beta/builds/270fe2884b8940f68684fae62c89c39e)
 
 
-Most web applications encounter problems of latency because they process data discretely instead of in streams. ndjsonstream() converts a ReadableStream of raw ndjson data into a ReadableStream of Javascript objects.
+Most web applications encounter problems of latency because they process data discretely instead of in streams. `ndjsonstream()` converts a ReadableStream of raw ndjson data into a ReadableStream of Javascript objects.
 
 ## Demo
 
