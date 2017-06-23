@@ -30,16 +30,6 @@
     "ci": "npm run build && npm run test && node ./test-sauce-labs.js"
   },
   "main": "can-ndjson-stream",
-  "browser": {
-    "transform": [
-      "cssify"
-    ]
-  },
-  "browserify": {
-    "transform": [
-      "cssify"
-    ]
-  },
   "keywords": [],
   "steal": {
     "main": "can-ndjson-stream",
@@ -53,10 +43,6 @@
       "steal-tools"
     ]
   },
-  "dependencies": {
-    "bunyan": "^1.8.10",
-    "cssify": "^1.0.3"
-  },
   "devDependencies": {
     "done-serve": "^1.0.0-alpha.0",
     "donejs-cli": "^1.0.0-alpha.2",
@@ -68,7 +54,10 @@
     "steal-qunit": "^1.0.0",
     "steal-tools": "^1.0.1",
     "test-saucelabs": "0.0.1",
-    "testee": "^0.3.0"
+    "testee": "^0.4.0",
+    "generator-donejs": "^1.0.0-alpha.0",
+    "donejs-cli": "^1.0.0-alpha.2",
+    "done-serve": "^1.0.0-alpha.0"
   },
   "licenses": [
     {
