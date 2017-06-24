@@ -2,45 +2,55 @@
 @parent can-ecosystem
 @package ../package.json
 
-@description Parses an ndjson stream into a stream of JavaScript objects.
+@description Parses an [NDJSON](http://www.ndjson.org) stream into a stream of JavaScript objects.
 
 @signature `ndjsonStream(stream)`
 
-The `can-ndjson-stream` module converts a stream of ndjson to a [ReadableStream](https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream) of JavaScript objects. In order to use this module, you must first use [fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) with a service that sends an ndjson stream.
-
+The `can-ndjson-stream` module converts a stream of NDJSON to a [ReadableStream](https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream) of JavaScript objects. It is likely that you would use this module to parse an NDJSON stream `response` object received from a [`fetch`](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) request to a service that sends NDJSON streams.
 ```js
   const ndjsonStream = require('can-ndjson-stream');
-  fetch('some/endpoint')  // make a fetch request to a ndjson stream service
+  fetch('some/endpoint')  // make a fetch request to a NDJSON stream service
   .then((response) => {
     return ndjsonStream(response.body); //ndjsonStream parses the response.body
 
-  }).then((todosStream) => {
-    todosStream.getReader().read().then(read = (result) => {
+  }).then((exampleStream) => {
+    let read;
+    exampleStream.getReader().read().then(read = (result) => {
       if (result.done) return;
 
       console.log(result.value);
-      todosStream.getReader().read().then(read);
+      exampleStream.getReader().read().then(read);
 
     });
   });
 ```
 
+@param {ReadableStream<Byte>} NDJSON stream
 
-
-@param {ReadableStream<Byte>} a ndjson stream
-
-@return {ReadableStream<Object>} The output is a [ReadableStream](https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream) of JS objects that have the following methods:
+@return {ReadableStream<Object>} The output is a [ReadableStream](https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream) that has the following methods:
 - getReader()
 - cancel([optional cancellation message])
 
-
-
 @body
 
-## Use with cancel method
+## What is NDJSON?
 
-1. Make a `fetch` request to an ndjson service by passing the endpoint as an argument. 
-2. The service responds with a stream of ndjson. 
+[NDJSON](http://ndjson.org) is a data format that is separated into individual JSON objects with a newline character (`\n`). The 'nd' stands for newline delimited JSON. Essentially, you have some data that is formatted like this:
+
+```javascript
+{"item":"first"}\n
+{"item":"second"}\n
+{"item":"third"}\n
+{"item":"fourth"}\n
+```
+Each item above is separated with a newline and each of those can be sent individually over a stream which allows the client to receive and process the data in specified increments.
+
+## Use
+
+This module is typically used with `fetch` to parse an NDJSON response stream. Follow the steps below to use `fetch` with an NDJSON stream service. See the [next section]() to learn how to create a service that emits an NDJSON stream.
+
+1. Make a `fetch` request to an NDJSON service by passing the endpoint as an argument. 
+2. The service responds with a stream of NDJSON. 
 3. `Fetch`'s `then` method is provided a `Response` instance, which we can parse using `ndjsonStream()` into a JavaScript `ReadableStream`
 5. Each JavaScript object in the stream can be read by calling `[streamName].getReader.read()`.
 6. `ReadableStream` exposes a `cancel` method that can be called to cancel the stream.
@@ -48,12 +58,13 @@ The `can-ndjson-stream` module converts a stream of ndjson to a [ReadableStream]
 ```js
   const ndjsonStream = require('can-ndjson-stream');
 
-  fetch('some/endpoint')  // make a fetch request to a ndjson stream service
+  fetch('some/endpoint')  // make a fetch request to a NDJSON stream service
     .then((response) => {
     return ndjsonStream(response.body); //ndjsonStream parses the response.body
-  }).then((todosStream) => {
-   //retain access to the reader so that you can cancel it
-   const reader = todosStream.getReader();
+  }).then((exampleStream) => {
+    //retain access to the reader so that you can cancel it
+    const reader = exampleStream.getReader();
+    let read;
 
     reader.read().then(read = (result) => {
       if(result.value.user === '19572827') {
@@ -63,7 +74,53 @@ The `can-ndjson-stream` module converts a stream of ndjson to a [ReadableStream]
 
       if (result.done) return;
       console.log(result.value);
-      todosStream.getReader().read().then(read);
+      exampleStream.getReader().read().then(read);
     });
   });
 ```
+
+## Creating an NDJSON stream service with node.
+
+This is a quick start guide to getting a NDJSON stream API up and running. For a more in-depth tutorial, check out this [blog post]().
+
+1. Install dependencies:
+```bash
+$ npm i express path fs ndjson
+```
+
+2. Create a server.js file and copy this code:
+
+```
+// server.js
+const express = require('express');
+const app = express();
+const path = require('path');
+const fs = require('fs');
+const ndjson = require('ndjson');
+
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.get('/', (req, res) => {
+  let readStream = fs.createReadStream(__dirname + '/todos.ndjson').pipe(ndjson.parse())
+  
+readStream.on('data', (data) => {
+    chunks.push(JSON.stringify(data));
+  });
+
+  readStream.on('end', () => {
+    var id = setInterval(() => {
+      if (chunks.length) {
+        res.write(chunks.shift() + '\n');
+      } else {
+        clearInterval(id);
+        res.end();
+      }
+    }, 500);
+  });
+});
+
+app.listen(3000, () => {
+  console.log('Example app listening on port 3000!');
+});
+```
+We use a `setInterval` to slow the stream down so that you can see the stream in action. Feel free to remove the setInterval and use a `while` loop to remove the delay.
