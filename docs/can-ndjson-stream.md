@@ -33,18 +33,6 @@ The `can-ndjson-stream` module converts a stream of NDJSON to a [ReadableStream]
 
 @body
 
-## What is NDJSON?
-
-[NDJSON](http://ndjson.org) is a data format that is separated into individual JSON objects with a newline character (`\n`). The 'nd' stands for newline delimited JSON. Essentially, you have some data that is formatted like this:
-
-```javascript
-{"item":"first"}\n
-{"item":"second"}\n
-{"item":"third"}\n
-{"item":"fourth"}\n
-```
-Each item above is separated with a newline and each of those can be sent individually over a stream which allows the client to receive and process the data in specified increments.
-
 ## Use
 
 This module is typically used with `fetch` to parse an NDJSON response stream. Follow the steps below to use `fetch` with an NDJSON stream service. See the [next section]() to learn how to create a service that emits an NDJSON stream.
@@ -52,7 +40,7 @@ This module is typically used with `fetch` to parse an NDJSON response stream. F
 1. Make a `fetch` request to an NDJSON service by passing the endpoint as an argument. 
 2. The service responds with a stream of NDJSON. 
 3. `Fetch`'s `then` method is provided a `Response` instance, which we can parse using `ndjsonStream()` into a JavaScript `ReadableStream`
-5. Each JavaScript object in the stream can be read by calling `[streamName].getReader.read()`.
+5. Each JavaScript object in the stream can be read by calling `[streamName].getReader.read()`, which returns a promise that resolves with one .
 6. `ReadableStream` exposes a `cancel` method that can be called to cancel the stream.
 
 ```js
@@ -124,3 +112,15 @@ app.listen(3000, () => {
 });
 ```
 We use a `setInterval` to slow the stream down so that you can see the stream in action. Feel free to remove the setInterval and use a `while` loop to remove the delay.
+
+## What is NDJSON?
+
+[NDJSON](http://ndjson.org) is a data format that is separated into individual JSON objects with a newline character (`\n`). The 'nd' stands for newline delimited JSON. Essentially, you have some data that is formatted like this:
+
+```javascript
+{"item":"first"}\n
+{"item":"second"}\n
+{"item":"third"}\n
+{"item":"fourth"}\n
+```
+Each item above is separated with a newline and each of those can be sent individually over a stream which allows the client to receive and process the data in specified increments.
