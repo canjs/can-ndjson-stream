@@ -1,6 +1,6 @@
 {
   "name": "can-ndjson-stream",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "",
   "homepage": "",
   "repository": {
@@ -54,10 +54,7 @@
     "steal-qunit": "^1.0.0",
     "steal-tools": "^1.0.1",
     "test-saucelabs": "0.0.1",
-    "testee": "^0.4.0",
-    "generator-donejs": "^1.0.0-alpha.0",
-    "donejs-cli": "^1.0.0-alpha.2",
-    "done-serve": "^1.0.0-alpha.0"
+    "testee": "^0.4.0"
   },
   "licenses": [
     {
