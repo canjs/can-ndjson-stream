@@ -1,6 +1,6 @@
 {
   "name": "can-ndjson-stream",
-  "version": "0.0.0",
+  "version": "0.1.2",
   "description": "",
   "homepage": "",
   "repository": {
@@ -8,26 +8,28 @@
     "url": "git://github.com/canjs/can-ndjson-stream.git"
   },
   "author": {
-    "name": "",
-    "email": "",
-    "url": ""
+    "name": "Bitovi",
+    "email": "contact@bitovi.com",
+    "url": "http://bitovi.com"
   },
   "scripts": {
     "preversion": "npm test && npm run build",
     "version": "git commit -am \"Update dist for release\" && git checkout -b release && git add -f dist/",
     "postversion": "git push --tags && git checkout master && git branch -D release && git push",
-    "testee": "testee test.html -c testee.json",
-	"testee-local": "testee test.html --browsers chrome",
+    "testee-local": "testee test.html --browsers chrome",
     "test": "npm run jshint && node test.js",
-	"test-local": "npm run jshint && npm run testee-local",
+    "test-local": "npm run jshint && npm run testee-local",
     "jshint": "jshint ./*.js --config",
     "release:patch": "npm version patch && npm publish",
     "release:minor": "npm version minor && npm publish",
     "release:major": "npm version major && npm publish",
     "build": "node build.js",
-    "develop": "done-serve --static --develop --port 8080"
+    "develop": "done-serve --static --develop --port 8080",
+    "demo": "cd demo/ && npm i && npm run start",
+    "http-server": "http-server -p 3000 --silent",
+    "ci": "npm run build && npm run test && node ./test-sauce-labs.js"
   },
-  "main": "dist/cjs/can-ndjson-stream",
+  "main": "can-ndjson-stream",
   "keywords": [],
   "steal": {
     "main": "can-ndjson-stream",
@@ -42,7 +44,12 @@
     ]
   },
   "devDependencies": {
+    "done-serve": "^1.0.0-alpha.0",
+    "donejs-cli": "^1.0.0-alpha.2",
+    "generator-donejs": "^1.0.0-alpha.0",
+    "http-server": "^0.10.0",
     "jshint": "^2.9.1",
+    "saucelabs": "^1.4.0",
     "steal": "^1.0.5",
     "steal-qunit": "^1.0.0",
     "steal-tools": "^1.0.1",
@@ -50,11 +57,13 @@
     "generator-donejs": "^1.0.0-alpha.0",
     "donejs-cli": "^1.0.0-alpha.2",
     "done-serve": "^1.0.0-alpha.0"
+    "test-saucelabs": "0.0.1",
   },
   "licenses": [
     {
       "type": "MIT",
       "url": "http://opensource.org/licenses/MIT"
     }
-  ]
+  ],
+  "false": {}
 }
