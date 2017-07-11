@@ -1,9 +1,0 @@
-{
-  "generator-donejs": {
-    "promptValues": {
-      "authorName": "",
-      "authorEmail": "",
-      "authorUrl": ""
-    }
-  }
-}

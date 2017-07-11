@@ -13,6 +13,6 @@ stealTools.export({
 	
 	setTimeout(function(){
 		throw e;
-	},1);
+	}, 1);
 	
 });
