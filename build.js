@@ -7,12 +7,16 @@ stealTools.export({
 	outputs: {
 		"+cjs": {},
 		"+amd": {},
-		"+global-js": {}
+		"+standalone": {
+			exports: {
+				"can-namespace": "can"
+			}
+		}
 	}
 }).catch(function(e){
-	
+
 	setTimeout(function(){
 		throw e;
 	}, 1);
-	
+
 });
