@@ -1,4 +1,8 @@
-module.exports = function(response) {
+/*exported ndjsonStream*/
+
+var namespace = require('can-namespace');
+
+var ndjsonStream = function(response) {
   // For cancellation
   var is_reader, cancellationRequest = false;
   return new ReadableStream({
@@ -59,3 +63,5 @@ module.exports = function(response) {
     }
   });
 };
+
+module.exports = namespace.ndjsonStream = ndjsonStream;

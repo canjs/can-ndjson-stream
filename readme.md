@@ -1,76 +1,28 @@
 # can-ndjson-stream
 
+[![Join the chat at https://gitter.im/canjs/canjs](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/canjs/canjs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/canjs/can-ndjson-stream/blob/master/license.md)
+[![npm version](https://badge.fury.io/js/can-ndjson-stream.svg)](https://www.npmjs.com/package/can-ndjson-stream)
+[![Travis build status](https://travis-ci.org/canjs/can-ndjson-stream.svg?branch=master)](https://travis-ci.org/canjs/can-ndjson-stream)
+[![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/canjs/can-ndjson-stream?branch=master&svg=true)](https://ci.appveyor.com/project/matthewp/can-ndjson-stream)
+[![Coverage status](https://coveralls.io/repos/github/canjs/can-ndjson-stream/badge.svg?branch=master)](https://coveralls.io/github/canjs/can-ndjson-stream?branch=master)
 [![Greenkeeper badge](https://badges.greenkeeper.io/canjs/can-ndjson-stream.svg)](https://greenkeeper.io/)
 
-[![Build Status](https://travis-ci.org/canjs/can-ndjson-stream.png?branch=master)](https://travis-ci.org/canjs/can-ndjson-stream)
+Most web applications encounter problems of latency because they process data discretely instead of in streams. `ndjsonstream()` converts a ReadableStream of raw ndjson data into a ReadableStream of Javascript objects.
 
+## Documentation
 
+Read the [can-ndjson-stream API docs on CanJS.com](https://canjs.com/doc/can-ndjson-stream.html).
 
-## Usage
+## Changelog
 
-### ES6 use
-
-With StealJS, you can import this module directly in a template that is autorendered:
-
-```js
-import plugin from 'can-ndjson-stream';
-```
-
-### CommonJS use
-
-Use `require` to load `can-ndjson-stream` and everything else
-needed to create a template that uses `can-ndjson-stream`:
-
-```js
-var plugin = require("can-ndjson-stream");
-```
-
-## AMD use
-
-Configure the `can` and `jquery` paths and the `can-ndjson-stream` package:
-
-```html
-<script src="require.js"></script>
-<script>
-	require.config({
-	    paths: {
-	        "jquery": "node_modules/jquery/dist/jquery",
-	        "can": "node_modules/canjs/dist/amd/can"
-	    },
-	    packages: [{
-		    	name: 'can-ndjson-stream',
-		    	location: 'node_modules/can-ndjson-stream/dist/amd',
-		    	main: 'lib/can-ndjson-stream'
-	    }]
-	});
-	require(["main-amd"], function(){});
-</script>
-```
-
-### Standalone use
-
-Load the `global` version of the plugin:
-
-```html
-<script src='./node_modules/can-ndjson-stream/dist/global/can-ndjson-stream.js'></script>
-```
+See the [latest releases on GitHub](https://github.com/canjs/can-ndjson-stream/releases).
 
 ## Contributing
 
-### Making a Build
+The [contribution guide](https://github.com/canjs/can-ndjson-stream/blob/master/CONTRIBUTING.md) has information on getting help, reporting bugs, developing locally, and more.
 
-To make a build of the distributables into `dist/` in the cloned repository run
+## License
 
-```
-npm install
-node build
-```
+[MIT](https://github.com/canjs/can-ndjson-stream/blob/master/license.md)
 
-### Running the tests
-
-Tests can run in the browser by opening a webserver and visiting the `test.html` page.
-Automated tests that run the tests from the command line in Firefox can be run with
-
-```
-npm test
-```
