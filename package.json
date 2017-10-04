@@ -17,7 +17,7 @@
     "version": "git commit -am \"Update version number\" && git checkout -b release && git add -f dist/",
     "postpublish": "git push --tags && git checkout master && git branch -D release && git push",
     "testee-local": "testee test.html --browsers chrome",
-    "test": "npm run jshint && node test.js",
+    "test": "npm run detect-cycle && npm run jshint && node test.js",
     "test-local": "npm run jshint && npm run testee-local",
     "jshint": "jshint ./*.js --config",
     "release:patch": "npm version patch && npm publish",
@@ -27,7 +27,8 @@
     "develop": "done-serve --static --develop --port 8080",
     "demo": "cd demo/ && npm i && npm run start",
     "http-server": "http-server -p 3000 --silent",
-    "ci": "npm run build && npm run test && node ./test-sauce-labs.js"
+    "ci": "npm run build && npm run test && node ./test-sauce-labs.js",
+    "detect-cycle": "detect-cyclic-packages --ignore done-serve"
   },
   "main": "can-ndjson-stream",
   "keywords": [],
@@ -44,6 +45,7 @@
     ]
   },
   "devDependencies": {
+    "detect-cyclic-packages": "^1.1.0",
     "http-server": "^0.10.0",
     "jshint": "^2.9.1",
     "saucelabs": "^1.4.0",
