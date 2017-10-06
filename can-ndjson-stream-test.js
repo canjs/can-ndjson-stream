@@ -86,10 +86,10 @@ conditionalAsyncTest('simple_test_from_stream', function(assert) {
   test(todoStream);
 });
 
-conditionalAsyncTest('maleformed json', function(assert) {
-  var maleformed_string = "{\"1\":2}\n{sss: 2}";
+conditionalAsyncTest('malformed json', function(assert) {
+  var malformed_string = "{\"1\":2}\n{sss: 2}";
   var readObjects = [];
-  var todoStream = ndjsonStream( readableStreamFromString(maleformed_string) );
+  var todoStream = ndjsonStream( readableStreamFromString(malformed_string) );
   var reader = todoStream.getReader();
   var errorCaught = false;
   function errCheck() {
@@ -105,10 +105,10 @@ conditionalAsyncTest('maleformed json', function(assert) {
     }, errCheck);
 
     allDone.then(function(){
-      assert.strictEqual(errorCaught, true, "maleformed json string should cause an error");
+      assert.strictEqual(errorCaught, true, "malformed json string should cause an error");
       QUnit.start();
     }, function(){
-      assert.strictEqual(errorCaught, true, "rejected: maleformed json string should cause an error");
+      assert.strictEqual(errorCaught, true, "rejected: malformed json string should cause an error");
       QUnit.start();
   });
 
