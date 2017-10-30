@@ -1,5 +1,6 @@
 @module {function} can-ndjson-stream
-@parent can-ecosystem
+@parent can-data-modeling
+@collection can-ecosystem
 @package ../package.json
 
 @description Parses an [NDJSON](http://www.ndjson.org) stream into a stream of JavaScript objects.
