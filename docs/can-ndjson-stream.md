@@ -16,12 +16,13 @@ fetch('/some/endpoint')  // make a fetch request to a NDJSON stream service
     return ndjsonStream(response.body); //ndjsonStream parses the response.body
 
   }).then((exampleStream) => {
+    const reader = exampleStream.getReader();
     let read;
-    exampleStream.getReader().read().then(read = (result) => {
+    reader.read().then(read = (result) => {
       if (result.done) return;
 
       console.log(result.value);
-      exampleStream.getReader().read().then(read);
+      reader.read().then(read);
 
     });
   });
