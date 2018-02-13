@@ -43,7 +43,7 @@ This module is typically used with [fetch](https://developer.mozilla.org/en-US/d
 
 Assuming your raw data looks something like this:
 
-```js
+```
 {"item":"first"}\n
 {"item":"second"}\n
 {"item":"third"}\n
@@ -80,7 +80,7 @@ follow these steps to make a request from an NDJSON service at `/some/endpoint`:
 
 [NDJSON](http://ndjson.org) is a data format that is separated into individual JSON objects with a newline character (`\n`). The 'nd' stands for newline delimited JSON. Essentially, you have some data that is formatted like this:
 
-```js
+```
 {"item":"first"}\n
 {"item":"second"}\n
 {"item":"third"}\n
