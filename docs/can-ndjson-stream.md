@@ -8,24 +8,24 @@
 @signature `ndjsonStream(stream)`
 
 The `can-ndjson-stream` module converts a stream of NDJSON to a [ReadableStream](https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream) of JavaScript objects. It is likely that you would use this module to parse an NDJSON stream `response` object received from a [`fetch`](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) request to a service that sends NDJSON streams.
-```javascript
+```js
 import ndjsonStream from 'can-ndjson-stream';
 
 fetch('/some/endpoint')  // make a fetch request to a NDJSON stream service
-  .then((response) => {
-    return ndjsonStream(response.body); //ndjsonStream parses the response.body
+	.then((response) => {
+		return ndjsonStream(response.body); //ndjsonStream parses the response.body
 
-  }).then((exampleStream) => {
-    const reader = exampleStream.getReader();
-    let read;
-    reader.read().then(read = (result) => {
-      if (result.done) return;
+	}).then((exampleStream) => {
+		const reader = exampleStream.getReader();
+		let read;
+		reader.read().then(read = (result) => {
+			if (result.done) return;
 
-      console.log(result.value);
-      reader.read().then(read);
+			console.log(result.value);
+			reader.read().then(read);
 
-    });
-  });
+		});
+	});
 ```
 
 @param {ReadableStream<Byte>} stream A readable [NDJSON](http://www.ndjson.org/) byte stream.  
@@ -58,23 +58,23 @@ follow these steps to make a request from an NDJSON service at `/some/endpoint`:
 5. Each JavaScript object in the stream can be read by calling `[streamName].getReader.read()`, which returns a promise.
 6. The result of that promise will be one JS object from your NDJSON: `{item: "first"}`
 
-```javascript
-  import ndjsonStream from 'can-ndjson-stream';
+```js
+import ndjsonStream from 'can-ndjson-stream';
 
-  fetch('/some/endpoint')  // make a fetch request to a NDJSON stream service
-    .then((response) => {
-    return ndjsonStream(response.body); //ndjsonStream parses the response.body
-  }).then((exampleStream) => {
-    //retain access to the reader so that you can cancel it
-    const reader = exampleStream.getReader();
-    let read;
+fetch('/some/endpoint')  // make a fetch request to a NDJSON stream service
+	.then((response) => {
+		return ndjsonStream(response.body); //ndjsonStream parses the response.body
+	}).then((exampleStream) => {
+		//retain access to the reader so that you can cancel it
+		const reader = exampleStream.getReader();
+		let read;
 
-    reader.read().then(read = (result) => {
-      if (result.done) return;
-      console.log(result.value); //logs {item:"first"}
-      exampleStream.getReader().read().then(read);
-    });
-  });
+		reader.read().then(read = (result) => {
+			if (result.done) return;
+			console.log(result.value); //logs {item:"first"}
+			exampleStream.getReader().read().then(read);
+		});
+	});
 ```
 ## What is NDJSON?
 
@@ -101,7 +101,7 @@ $ npm i express path fs ndjson
 
 2. Create a server.js file and copy this code:
 
-```javascript
+```js
 // server.js
 import express from 'express';
 
@@ -113,26 +113,26 @@ import ndjson from 'ndjson';
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
-  let readStream = fs.createReadStream(__dirname + '/todos.ndjson').pipe(ndjson.parse())
+	let readStream = fs.createReadStream(__dirname + '/todos.ndjson').pipe(ndjson.parse())
 
-readStream.on('data', (data) => {
-    chunks.push(JSON.stringify(data));
-  });
+	readStream.on('data', (data) => {
+		chunks.push(JSON.stringify(data));
+	});
 
-  readStream.on('end', () => {
-    const id = setInterval(() => {
-      if (chunks.length) {
-        res.write(chunks.shift() + '\n');
-      } else {
-        clearInterval(id);
-        res.end();
-      }
-    }, 500);
-  });
+	readStream.on('end', () => {
+		const id = setInterval(() => {
+			if (chunks.length) {
+				res.write(chunks.shift() + '\n');
+			} else {
+				clearInterval(id);
+				res.end();
+			}
+		}, 500);
+	});
 });
 
 app.listen(3000, () => {
-  console.log('Example app listening on port 3000!');
+	console.log('Example app listening on port 3000!');
 });
 ```
 We use a `setInterval` to slow the stream down so that you can see the stream in action. Feel free to remove the setInterval and use a `while` loop to remove the delay.
