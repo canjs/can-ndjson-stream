@@ -8,8 +8,8 @@
 @signature `ndjsonStream(stream)`
 
 The `can-ndjson-stream` module converts a stream of NDJSON to a [ReadableStream](https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream) of JavaScript objects. It is likely that you would use this module to parse an NDJSON stream `response` object received from a [`fetch`](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) request to a service that sends NDJSON streams.
-```js
-const ndjsonStream = require('can-ndjson-stream');
+```javascript
+import ndjsonStream from 'can-ndjson-stream';
 
 fetch('/some/endpoint')  // make a fetch request to a NDJSON stream service
   .then((response) => {
@@ -58,8 +58,8 @@ follow these steps to make a request from an NDJSON service at `/some/endpoint`:
 5. Each JavaScript object in the stream can be read by calling `[streamName].getReader.read()`, which returns a promise.
 6. The result of that promise will be one JS object from your NDJSON: `{item: "first"}`
 
-```js
-  const ndjsonStream = require('can-ndjson-stream');
+```javascript
+  import ndjsonStream from 'can-ndjson-stream';
 
   fetch('/some/endpoint')  // make a fetch request to a NDJSON stream service
     .then((response) => {
@@ -101,13 +101,14 @@ $ npm i express path fs ndjson
 
 2. Create a server.js file and copy this code:
 
-```js
+```javascript
 // server.js
-const express = require('express');
+import express from 'express';
+
 const app = express();
-const path = require('path');
-const fs = require('fs');
-const ndjson = require('ndjson');
+import path from 'path';
+import fs from 'fs';
+import ndjson from 'ndjson';
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -119,7 +120,7 @@ readStream.on('data', (data) => {
   });
 
   readStream.on('end', () => {
-    var id = setInterval(() => {
+    const id = setInterval(() => {
       if (chunks.length) {
         res.write(chunks.shift() + '\n');
       } else {
