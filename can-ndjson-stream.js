@@ -1,3 +1,4 @@
+"use strict";
 /*exported ndjsonStream*/
 
 var namespace = require('can-namespace');
