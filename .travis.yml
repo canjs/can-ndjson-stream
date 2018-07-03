@@ -1,17 +1,17 @@
-sudo: false
+sudo: required
 dist: trusty
 language: node_js
 node_js: node
 addons:
-  apt:
-    packages:
-      - google-chrome-stable
+  chrome: stable
   sauce_connect: true
 before_script:
   - 'export DISPLAY=:99.0'
   - sh -e /etc/init.d/xvfb start &
   - npm run http-server &
   - sleep 3
+  - "sudo chown root /opt/google/chrome/chrome-sandbox"
+  - "sudo chmod 4755 /opt/google/chrome/chrome-sandbox"
 script: npm run ci
 env:
   global:
