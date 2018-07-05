@@ -52,7 +52,7 @@
     "steal": "^1.0.5",
     "steal-qunit": "^1.0.0",
     "steal-tools": "^1.0.1",
-    "test-saucelabs": "0.0.3",
+    "test-saucelabs": "0.0.4",
     "testee": "^0.8.0"
   },
   "licenses": [
