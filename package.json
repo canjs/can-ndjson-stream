@@ -48,7 +48,7 @@
     "detect-cyclic-packages": "^1.1.0",
     "http-server": "^0.11.0",
     "jshint": "^2.9.1",
-    "saucelabs": "^1.4.0",
+    "saucelabs": "^2.0.0",
     "steal": "^1.0.5",
     "steal-qunit": "^1.0.0",
     "steal-tools": "^1.0.1",
