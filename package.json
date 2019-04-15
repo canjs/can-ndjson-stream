@@ -48,12 +48,12 @@
     "detect-cyclic-packages": "^1.1.0",
     "http-server": "^0.11.0",
     "jshint": "^2.9.1",
-    "saucelabs": "^1.4.0",
-    "steal": "^1.0.5",
+    "saucelabs": "^2.1.7",
+    "steal": "^2.2.1",
     "steal-qunit": "^1.0.0",
-    "steal-tools": "^1.0.1",
-    "test-saucelabs": "0.0.3",
-    "testee": "^0.8.0"
+    "steal-tools": "^2.2.1",
+    "test-saucelabs": "0.0.6",
+    "testee": "^0.9.0"
   },
   "licenses": [
     {
