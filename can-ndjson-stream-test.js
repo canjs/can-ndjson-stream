@@ -58,7 +58,7 @@ function inputStream(objArray) {
 QUnit.module('can-ndjson-stream');
 
 conditionalTest('Initialized the plugin', function(){
-	QUnit.equal(typeof ndjsonStream, 'function');
+	assert.equal(typeof ndjsonStream, 'function');
 });
 
 conditionalAsyncTest('simple_test_from_stream', function(assert) {
@@ -74,16 +74,16 @@ conditionalAsyncTest('simple_test_from_stream', function(assert) {
   function test(todosStream) {
     var reader = todosStream.getReader();
     reader.read().then(function read(result) {
-      if (result.done) {
+      if (result.start) {
         assert.deepEqual(readObjects, testObject, "Two arrays should be the same in value");
-        QUnit.start();
+        done();
         return;
       }
       readObjects.push(result.value);
       reader.read().then(read);
     });
   }
-  test(todoStream);
+  QUnit.test(todoStream);
 });
 
 conditionalAsyncTest('malformed json', function(assert) {
@@ -97,7 +97,7 @@ conditionalAsyncTest('malformed json', function(assert) {
   }
 
   var allDone = reader.read().then(function read(result) {
-      if (result.done) {
+      if (result.start) {
         return;
       }
       readObjects.push(result.value);
@@ -106,10 +106,10 @@ conditionalAsyncTest('malformed json', function(assert) {
 
     allDone.then(function(){
       assert.strictEqual(errorCaught, true, "malformed json string should cause an error");
-      QUnit.start();
+      done();
     }, function(){
       assert.strictEqual(errorCaught, true, "rejected: malformed json string should cause an error");
-      QUnit.start();
+      done();
   });
 
 });
