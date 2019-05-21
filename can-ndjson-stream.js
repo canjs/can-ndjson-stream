@@ -23,6 +23,7 @@ var ndjsonStream = function(response) {
           data_buf = data_buf.trim();
           if (data_buf.length !== 0) {
             try {
+                // console.log(data_buf, typeof data_buf);
               var data_l = JSON.parse(data_buf);
               controller.enqueue(data_l);
             } catch(e) {

@@ -106,9 +106,11 @@ conditionalAsyncTest('malformed json', function(assert) {
 
     allDone.then(function(){
       assert.strictEqual(errorCaught, true, "malformed json string should cause an error");
-  }).then(function(){
-      assert.strictEqual(errorCaught, true, "rejected: malformed json string should cause an error");
       done();
+  }, function(){
+
+      assert.strictEqual(errorCaught, true, "rejected: malformed json string should cause an error");
+       done();
   });
 
 });

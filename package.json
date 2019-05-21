@@ -16,7 +16,7 @@
     "preversion": "npm test && npm run build",
     "version": "git commit -am \"Update version number\" && git checkout -b release && git add -f dist/",
     "postpublish": "git push --tags && git checkout master && git branch -D release && git push",
-    "testee-local": "testee test.html --browsers chrome",
+    "testee-local": "DEBUG=testee:* testee test.html --browsers chrome",
     "test": "npm run detect-cycle && npm run jshint && node test.js",
     "test-local": "npm run jshint && npm run testee-local",
     "jshint": "jshint ./*.js --config",
