@@ -20,7 +20,7 @@ var platforms = [{
 {
   browserName: 'chrome',
   platform: 'Windows 7',
-  version: '53.0'
+  version: '73.0'
 }];
 
 var url = 'http://localhost:3000/test.html';
