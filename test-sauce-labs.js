@@ -4,13 +4,9 @@ var testSauceLabs = require('test-saucelabs');
 
 // https://github.com/SeleniumHQ/selenium/wiki/DesiredCapabilities
 var platforms = [{
-  browserName: 'chrome',
-  platform: 'OS X 10.11',
-  version: '58.0'
-},{
-  browserName: 'chrome',
-  platform: 'OS X 10.9',
-  version: '54.0'
+  browserName: 'googlechrome',
+	platform: 'OS X 10.12',
+	version: 'latest',
 },
 {
   browserName: 'chrome',
