@@ -95,6 +95,12 @@ conditionalAsyncTest('malformed json', function(assert) {
   function errCheck() {
     errorCaught = true;
   }
+
+  // Firefox has a bug where an unhandled rejection is emitted from `new ReadableStream(source)` if `source.start()` rejects.
+  // See https://bugzilla.mozilla.org/show_bug.cgi?id=1561911 for more info.
+  // This line should be removed if the Firefox bug above is fixed.
+  QUnit.onUnhandledRejection = function() {};
+
   var done = assert.async();
   var allDone = reader.read().then(function read(result) {
       if (result.start) {
