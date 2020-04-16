@@ -12,6 +12,7 @@ var ndjsonStream = function(response) {
       is_reader = reader;
       var decoder = new TextDecoder();
       var data_buf = "";
+      var errorHandler = controller.error.bind(controller);
 
       reader.read().then(function processResult(result) {
         if (result.done) {
@@ -53,8 +54,8 @@ var ndjsonStream = function(response) {
         }
         data_buf = lines[lines.length-1];
 
-        return reader.read().then(processResult);
-      });
+        return reader.read().then(processResult).catch(errorHandler);
+      }).catch(errorHandler);
 
     },
     cancel: function(reason) {
